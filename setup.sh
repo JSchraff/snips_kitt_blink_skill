@@ -20,5 +20,3 @@ fi
 . $VENV/bin/activate
 
 pip3 install -r requirements.txt
-sudo usermod -a -G gpio _snips-skills
-sudo cp scannerSweep.wav /usr/share/snips/assistant/custom_dialogue/sound/start_of_input.wav
