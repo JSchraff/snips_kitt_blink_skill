@@ -20,6 +20,3 @@ fi
 . $VENV/bin/activate
 
 pip3 install -r requirements.txt
-
-usermod -a -G gpio _snips
-usermod -a -G gpio _snips-skills
