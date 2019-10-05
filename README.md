@@ -2,8 +2,7 @@
 a skill for snips that blinks leds and replaces default tone
 
 #Installation 
-add snipsuser to gpio group manually if leds are used
+add snipsuser to sudo group manually
 ```
-usermod -a -G gpio _snips
-usermod -a -G gpio _snips-skills
+usermod -a -G sudo _snips-skills
 ```
