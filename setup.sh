@@ -21,5 +21,5 @@ fi
 
 pip3 install -r requirements.txt
 
-sudo usermod -a -G gpio _snips
-sudo usermod -a -G gpio _snips-skills
+usermod -a -G gpio _snips
+usermod -a -G gpio _snips-skills
