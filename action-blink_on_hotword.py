@@ -46,13 +46,13 @@ def blink():
     GPIO.output(pin, GPIO.LOW)
 
 
-playThread = Thread(target=playSound)
+#playThread = Thread(target=playSound)
 blinkThread = Thread(target=blink)
 
 def startListen():
-    playThread = Thread(target=playSound)
+    #playThread = Thread(target=playSound)
     blinkThread = Thread(target=blink)
-    playThread.start()
+    #playThread.start()
     blinkThread.start()
 
 def stopListen():
