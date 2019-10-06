@@ -65,7 +65,7 @@ def registerSound():
     fp = open('scannerSweep.wav', 'rb')
     f = fp.read()
     client.publish("hermes/tts/registerSound/scannerSweep", bytearray(f))
-    client.publish("hermes/dialogue/startSession", {"siteId":"default", "lang":"de", "text": "[[sound:scannerSweep]]", "id": "someramdomid", "sessionId": "somerandomsessionid"})
+    client.publish("hermes/dialogue/startSession", '{"siteId":"default", "lang":"de", "text": "[[sound:scannerSweep]]", "id": "someramdomid", "sessionId": "somerandomsessionid"}')
     fp.close()
 
 
