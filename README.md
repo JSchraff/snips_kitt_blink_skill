@@ -6,3 +6,7 @@ add snipsuser to gpio group manually if leds are used
 ```
 usermod -a -G gpio _snips-skills
 ```
+or
+```
+useradd _snips-skills gpio
+```

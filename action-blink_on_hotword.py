@@ -25,8 +25,10 @@ for pin in sweep:
     GPIO.setup(pin, GPIO.OUT)
 
 
-def playSound():
-    os.system("aplay scannerSweep.wav")
+def playSound(filename, siteId):
+    fp = open('file.wav', 'rb')
+    f = fp.read()
+    client.publish('hermes/audioServer/{}/playBytes/'.format(siteId), bytearray(f))
 
 
 def blink():
@@ -46,11 +48,10 @@ def blink():
     GPIO.output(pin, GPIO.LOW)
 
 
-#playThread = Thread(target=playSound)
+
 blinkThread = Thread(target=blink)
 
 def startListen():
-    #playThread = Thread(target=playSound)
     blinkThread = Thread(target=blink)
     #playThread.start()
     blinkThread.start()
@@ -60,10 +61,15 @@ def stopListen():
     blinking = False
 
 def on_message(client, userdata, msg):
-    if msg.topic == "hermes/hotword/toggleOff":
+    if msg.topic == "hermes/dialogueManager/sessionStarted":
         startListen()
-    elif msg.topic == "hermes/hotword/toggleOn":
+    elif msg.topic == "hermes/dialogueManager/sessionEnded":
         stopListen()
+    elif msg.topic == "hermes/hotword/default/detected":
+        playSound("scannerSweep.wav", "default")
+    #elif msg.topic == "hermes/asr/textCaptured":
+    #elif msg.topic == "hermes/nlu/intentNotRecognized":
+
 
 
 if __name__ == "__main__":
