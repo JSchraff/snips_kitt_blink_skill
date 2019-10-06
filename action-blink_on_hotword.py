@@ -57,7 +57,7 @@ def on_message(client, userdata, msg):
     if msg.topic == "hermes/dialogueManager/sessionStarted":
         startListen()
         client.publish("hermes/tts/say",
-                       '{"siteId":"{}", "lang":"de_DE", "text": "[[sound:scannerSweep]]", "id": "{}", "sessionId": "{}"}'.format(json.load(msg.payload)["siteId"],random.randint,json.load(msg.payload)["sessionId"])) Q
+                       '{"siteId":"{}", "lang":"de_DE", "text": "[[sound:scannerSweep]]", "id": "{}", "sessionId": "{}"}'.format(json.load(msg.payload)["siteId"],random.randint,json.load(msg.payload)["sessionId"]))
     elif msg.topic == "hermes/dialogueManager/sessionEnded":
         stopListen()
     #elif msg.topic == "hermes/hotword/default/detected":
@@ -69,7 +69,7 @@ def registerSound():
     fp = open('scannerSweep.wav', 'rb')
     f = fp.read()
     client.publish("hermes/tts/registerSound/scannerSweep", bytearray(f))
-    client.publish("hermes/feedback/sound/toggleOff",'{"siteId": "default"}')
+    client.publish("hermes/feedback/sound/toggleOff",'{"siteId": "default"}') #turn standard sound off
     fp.close()
 
 
