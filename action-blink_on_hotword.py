@@ -25,11 +25,6 @@ for pin in sweep:
     GPIO.setup(pin, GPIO.OUT)
 
 
-def playSound(filename, siteId):
-    fp = open('file.wav', 'rb')
-    f = fp.read()
-    client.publish('hermes/audioServer/{}/playBytes/'.format(siteId), bytearray(f))
-
 
 def blink():
     global blinking
@@ -65,11 +60,17 @@ def on_message(client, userdata, msg):
         startListen()
     elif msg.topic == "hermes/dialogueManager/sessionEnded":
         stopListen()
-    elif msg.topic == "hermes/hotword/default/detected":
-        playSound("scannerSweep.wav", "default")
+    #elif msg.topic == "hermes/hotword/default/detected":
     #elif msg.topic == "hermes/asr/textCaptured":
     #elif msg.topic == "hermes/nlu/intentNotRecognized":
 
+
+def registerSound():
+    fp = open('file.wav', 'rb')
+    f = fp.read()
+    client.publish("hermes/tts/registerSound/scannerSweep", bytearray(f))
+    client.publish("hermes/dialogue/startSession", {"siteId":"default", "lang":"de", "text": "[[sound:scannerSweep]]", "id": "someramdomid", "sessionId": "somerandomsessionid"})
+    fp.close()
 
 
 if __name__ == "__main__":
@@ -77,4 +78,5 @@ if __name__ == "__main__":
     client.on_message = on_message
     client.connect(MQTT_IP_ADDR, MQTT_PORT, 60)
     client.subscribe("#")
+    registerSound()
     client.loop_forever()
