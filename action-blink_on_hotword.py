@@ -12,6 +12,8 @@ import paho.mqtt.client as mqtt
 from threading import Thread
 import time
 import RPi.GPIO as GPIO
+import json
+import random
 
 GPIO.setwarnings(False)
 GPIO.setmode(GPIO.BCM)
@@ -54,6 +56,8 @@ def stopListen():
 def on_message(client, userdata, msg):
     if msg.topic == "hermes/dialogueManager/sessionStarted":
         startListen()
+        client.publish("hermes/tts/say",
+                       '{"siteId":"{}", "lang":"de_DE", "text": "[[sound:scannerSweep]]", "id": "{}", "sessionId": "{}"}'.format(json.load(msg.payload)["siteId"],random.randint,json.load(msg.payload)["sessionId"])) Q
     elif msg.topic == "hermes/dialogueManager/sessionEnded":
         stopListen()
     #elif msg.topic == "hermes/hotword/default/detected":
@@ -65,7 +69,7 @@ def registerSound():
     fp = open('scannerSweep.wav', 'rb')
     f = fp.read()
     client.publish("hermes/tts/registerSound/scannerSweep", bytearray(f))
-    client.publish("hermes/dialogue/startSession", '{"siteId":"default", "lang":"de", "text": "[[sound:scannerSweep]]", "id": "someramdomid", "sessionId": "somerandomsessionid"}')
+    client.publish("hermes/feedback/sound/toggleOff",'{"siteId": "default"}')
     fp.close()
 
 
