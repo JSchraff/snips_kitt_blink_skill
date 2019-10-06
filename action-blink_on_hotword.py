@@ -1,9 +1,5 @@
 #!/usr/bin/env python3
 
-import paho.mqtt.client as mqtt
-
-
-
 # if this skill is supposed to run on the satellite,
 # please get this mqtt connection info from <config.ini>
 #
@@ -12,10 +8,10 @@ MQTT_IP_ADDR = "localhost"
 MQTT_PORT = 1883
 
 
+import paho.mqtt.client as mqtt
 from threading import Thread
 import time
 import RPi.GPIO as GPIO
-import os
 
 GPIO.setwarnings(False)
 GPIO.setmode(GPIO.BCM)
@@ -48,12 +44,12 @@ blinkThread = Thread(target=blink)
 
 def startListen():
     blinkThread = Thread(target=blink)
-    #playThread.start()
     blinkThread.start()
 
 def stopListen():
     global blinking
     blinking = False
+    blinkThread.join()
 
 def on_message(client, userdata, msg):
     if msg.topic == "hermes/dialogueManager/sessionStarted":
