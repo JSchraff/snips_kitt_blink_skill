@@ -58,7 +58,7 @@ def on_message(client, userdata, msg):
         startListen()
         print("say Sweep")
         client.publish("hermes/tts/say",
-                       '{"siteId":"{}", "lang":"de_DE", "text": "[[sound:scannerSweep]]", "id": "23", "sessionId": "45"}'.format(json.load(msg.payload)["siteId"]))
+                       '{"siteId":"default", "lang":"de_DE", "text": "[[sound:scannerSweep]]", "id": "23", "sessionId": "45"}')#.format(json.load(msg.payload)["siteId"]))
 
        # hermes / tts / say    {"siteId": "default", "lang": "de_DE", "text": "[[sound:scannerSweep]]", "id": "23", "sessionId": "34235523"}
 
