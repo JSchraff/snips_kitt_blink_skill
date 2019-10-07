@@ -57,10 +57,13 @@ def on_message(client, userdata, msg):
     if msg.topic == "hermes/dialogueManager/sessionStarted":
         startListen()
         client.publish("hermes/tts/say",
-                       '{"siteId":"{}", "lang":"de_DE", "text": "[[sound:scannerSweep]]", "id": "{}", "sessionId": "{}"}'.format(json.load(msg.payload)["siteId"],random.randint,json.load(msg.payload)["sessionId"]))
+                       '{"siteId":"{}", "lang":"de_DE", "text": "[[sound:scannerSweep]]", "id": "23", "sessionId": "45"}'.format(json.load(msg.payload)["siteId"]))
+
+       # hermes / tts / say    {"siteId": "default", "lang": "de_DE", "text": "[[sound:scannerSweep]]", "id": "23", "sessionId": "34235523"}
+
     elif msg.topic == "hermes/dialogueManager/sessionEnded":
         stopListen()
-    #elif msg.topic == "hermes/hotword/default/detected":
+    #elif msg.topic == "hermes/hotword/+/detected":
     #elif msg.topic == "hermes/asr/textCaptured":
     #elif msg.topic == "hermes/nlu/intentNotRecognized":
 
