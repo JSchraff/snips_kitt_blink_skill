@@ -56,6 +56,7 @@ def stopListen():
 def on_message(client, userdata, msg):
     if msg.topic == "hermes/dialogueManager/sessionStarted":
         startListen()
+        print("say Sweep")
         client.publish("hermes/tts/say",
                        '{"siteId":"{}", "lang":"de_DE", "text": "[[sound:scannerSweep]]", "id": "23", "sessionId": "45"}'.format(json.load(msg.payload)["siteId"]))
 
@@ -63,9 +64,10 @@ def on_message(client, userdata, msg):
 
     elif msg.topic == "hermes/dialogueManager/sessionEnded":
         stopListen()
-    #elif msg.topic == "hermes/hotword/+/detected":
-    #elif msg.topic == "hermes/asr/textCaptured":
-    #elif msg.topic == "hermes/nlu/intentNotRecognized":
+    elif msg.topic == "hermes/asr/textCaptured":
+        pass
+    elif msg.topic == "hermes/nlu/intentNotRecognized":
+        pass
 
 
 def registerSound():
