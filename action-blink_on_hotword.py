@@ -56,11 +56,8 @@ def stopListen():
 def on_message(client, userdata, msg):
     if msg.topic == "hermes/dialogueManager/sessionStarted":
         startListen()
-
-        #client.publish("hermes/tts/say",
-         #              '{"siteId":"default", "lang":"de_DE", "text": "[[sound:scannerSweep]]", "id": "23", "sessionId": "45"}')#.format(json.load(msg.payload)["siteId"]))
-        print("say Sweep at site {}".format(json.loads(msg.payload)["siteId"]))
-       # hermes / tts / say    {"siteId": "default", "lang": "de_DE", "text": "[[sound:scannerSweep]]", "id": "23", "sessionId": "34235523"}
+        client.publish("hermes/tts/say",
+                       '{"siteId":"default", "lang":"de_DE", "text": "[[sound:scannerSweep]]", "id": "23", "sessionId": "45"}')#.format(json.load(msg.payload)["siteId"]))
 
     elif msg.topic == "hermes/dialogueManager/sessionEnded":
         stopListen()
